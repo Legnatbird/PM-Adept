@@ -20,7 +20,7 @@ export const fetchCurrencies = createAsyncThunk("currencies/fetchCurrencies", as
 export const currenciesSlice = createSlice({
     name: "currencies",
     initialState,
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder.addCase(fetchCurrencies.pending, (state) => {
             state.loading = true;
         })

@@ -1,12 +1,11 @@
-import Principal from './layouts/Principal';
+import Rates from './pages/Rates';
 import './App.css';
-
 
 export default function App() {
 
   return (
     <>
-      <Principal />
+      <Rates />
     </>
   );
 };

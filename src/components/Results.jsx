@@ -1,15 +1,15 @@
-export default function Results({result}) {
-  
+import { useSelector } from "react-redux";
+
+export default function Results() {
+
+  const { convert } = useSelector(state => state.converted);
+  const currencie = useSelector(state => state.currency.currencies);
+
+  const text = `1 ${currencie[0]} = ${convert} ${currencie[1]}`
+
   return (
-    <div className="cold-md-6">
-      <div className="card">
-        <div className="card-header">
-          <h3>Results</h3>
-        </div>
-        <div className="card-body">
-          <p>{result}</p>
-        </div>
-      </div>
-    </div>
+    <>
+      <p style={{marginTop: "10px", marginBottom: "unset"}}>{text}</p>
+    </>
   )
 }
