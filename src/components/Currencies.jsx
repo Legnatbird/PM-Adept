@@ -17,9 +17,8 @@ export default function Currencies() {
   }, [dispatch]);
 
   function handleChange(e) {
-    console.log(e.target.value);
     dispatch(setConvert({
-      visible,
+      visible: false,
       convert: e.target.value,
       convertTo
     }));
