@@ -10,17 +10,17 @@ const initialState = {
 
 export const fetchHistorical = createAsyncThunk("historical/fetchHistorical", async (date) => {
   return axios
-      .get(`${API_URL}historical/${date}.json?app_id=${ID}`)
-      .then((response) => response.data.rates)
+    .get(`${API_URL}historical/${date}.json?app_id=${ID}`)
+    .then((response) => response.data.rates)
 });
 
 export const historicalSlice = createSlice({
-    name: "historical",
-    initialState,
-    extraReducers: builder => {
-      builder.addCase(fetchHistorical.fulfilled, (state, action) => {
-          state.history = action.payload;
-      })
+  name: "historical",
+  initialState,
+  extraReducers: builder => {
+    builder.addCase(fetchHistorical.fulfilled, (state, action) => {
+      state.history = action.payload;
+    })
   }
 })
 

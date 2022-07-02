@@ -11,23 +11,23 @@ export default function Historical() {
   const currencies = useSelector(state => state.currency.currencies);
   const dispatch = useDispatch();
 
-  const handleChange = e=> {
+  const handleChange = e => {
     if (e.target.value) {
       dispatch(fetchHistorical(e.target.value));
     }
   };
-  const handleSubmit = e=> {
+  const handleSubmit = e => {
     e.preventDefault();
-    setValue((currencieHistorical[currencies[1]] / currencieHistorical[currencies[0]]).toFixed(2)); 
+    setValue((currencieHistorical[currencies[1]] / currencieHistorical[currencies[0]]).toFixed(2));
   };
-  
+
   const date = getDate();
   const text = (value > 0) ? `The rate of ${currencies[0]} at that date was: ${value} ${currencies[1]}` : "Set a date";
 
   return (
     <>
       <div className="row">
-        <div style={{width: "100%", marginLeft: "10px"}} className="col-md-6">
+        <div style={{ width: "100%", marginLeft: "10px" }} className="col-md-6">
           <div className="card">
             <div className="card-header">
               <h3>Historic Lookup</h3>
@@ -36,12 +36,12 @@ export default function Historical() {
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="from">Date</label>
-                  <input className="form-control" type="date" id="date" max={date} onChange={handleChange}/>
+                  <input className="form-control" type="date" id="date" max={date} onChange={handleChange} />
                 </div>
-                <div style={{display: "flex", flexDirection: "column"}}>
-                <button type="submit" className="btn btn-primary">Check</button>
-                {value && <p style={{marginTop: "10px", marginBottom: "unset"}}>{text}</p>}
-              </div>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <button type="submit" className="btn btn-primary">Check</button>
+                  {value && <p style={{ marginTop: "10px", marginBottom: "unset" }}>{text}</p>}
+                </div>
               </form>
             </div>
           </div>

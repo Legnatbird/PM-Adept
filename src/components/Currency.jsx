@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCurrency } from "../features/Selected/selectedSlide";
 import { setConvert } from "../features/Convert/convertSlide";
 
-export default function Currency({bott, message= "Currency"}) {
+export default function Currency({ bott, message = "Currency" }) {
 
   const currencies = useSelector(state => state.currencies);
   const { convert, convertTo } = useSelector(state => state.converted);

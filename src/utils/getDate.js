@@ -7,7 +7,7 @@ export default function getDate() {
 
   if (day < 10) day = '0' + day;
   if (month < 10) month = '0' + month;
-  
+
   const date = year + '-' + month + '-' + day;
 
   return date

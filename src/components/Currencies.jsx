@@ -25,16 +25,16 @@ export default function Currencies() {
     }));
   }
 
- function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     dispatch(setConvert({
       visible: true,
       convert,
-      convertTo: parseFloat( convert * (currency[1] / currency[0])).toFixed(2)
+      convertTo: parseFloat(convert * (currency[1] / currency[0])).toFixed(2)
     }));
   }
 
-  
+
   return (
     <>
       {currencies.loading && <div>Loading currencies</div>}
@@ -43,15 +43,15 @@ export default function Currencies() {
         <>
           <div className="card-body">
             <form onSubmit={handleSubmit}>
-              <Currency bott="base"/>
-              <Currency bott="toCurrency" message="to"/>
+              <Currency bott="base" />
+              <Currency bott="toCurrency" message="to" />
               <div className="form-group">
                 <label htmlFor="amount">Amount</label>
-                <input defaultValue={1} min={0} step={0.01} type="number" name="amount" id="amount" className="form-control" onChange={handleChange}/>
+                <input defaultValue={1} min={0} step={0.01} type="number" name="amount" id="amount" className="form-control" onChange={handleChange} />
               </div>
-              <div style={{display: "flex", flexDirection: "column"}}>
+              <div style={{ display: "flex", flexDirection: "column" }}>
                 <button type="submit" className="btn btn-primary">Convert</button>
-                {visible && <p style={{marginTop: "10px", marginBottom: "unset"}}>{`${convert} ${currencie[0]} = ${convertTo} ${currencie[1]}`}</p>}
+                {visible && <p style={{ marginTop: "10px", marginBottom: "unset" }}>{`${convert} ${currencie[0]} = ${convertTo} ${currencie[1]}`}</p>}
               </div>
             </form>
           </div>
