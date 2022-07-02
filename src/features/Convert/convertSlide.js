@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     visible: false,
-    convert: 0
+    convert: 1,
+    convertTo: 0
 };
 
 
@@ -13,6 +14,7 @@ export const convertedSlice = createSlice({
         setConvert: (state, action) => {
             state.visible = action.payload.visible;
             state.convert = action.payload.convert;
+            state.convertTo = action.payload.convertTo;
         }
     }
 })

@@ -3,25 +3,37 @@ import { fetchCurrencies } from "../features/Currencies/currenciesSlide";
 import { setConvert } from "../features/Convert/convertSlide";
 import { useEffect } from "react"
 import Currency from "./Currency";
-import Results from "./Results";
 
 export default function Currencies() {
+  const { visible, convert, convertTo } = useSelector(state => state.converted);
   const currencies = useSelector(state => state.currencies);
-  const { visible } = useSelector(state => state.converted);
   const currency = useSelector(state => state.currency.values);
+  const currencie = useSelector(state => state.currency.currencies);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchCurrencies());
   }, [dispatch]);
 
-  function handleSubmit(e) {
+  function handleChange(e) {
+    console.log(e.target.value);
+    dispatch(setConvert({
+      visible,
+      convert: e.target.value,
+      convertTo
+    }));
+  }
+
+ function handleSubmit(e) {
     e.preventDefault();
     dispatch(setConvert({
       visible: true,
-      convert: (currency[1] / currency[0]).toFixed(2)
+      convert,
+      convertTo: parseFloat( convert * (currency[1] / currency[0])).toFixed(2)
     }));
   }
+
   
   return (
     <>
@@ -35,11 +47,11 @@ export default function Currencies() {
               <Currency bott="toCurrency" message="to"/>
               <div className="form-group">
                 <label htmlFor="amount">Amount</label>
-                <input defaultValue={1} min={0} step={0.01} type="number" name="amount" id="amount" className="form-control" />
+                <input defaultValue={1} min={0} step={0.01} type="number" name="amount" id="amount" className="form-control" onChange={handleChange}/>
               </div>
               <div style={{display: "flex", flexDirection: "column"}}>
                 <button type="submit" className="btn btn-primary">Convert</button>
-                {visible && <Results />}
+                {visible && <p style={{marginTop: "10px", marginBottom: "unset"}}>{`${convert} ${currencie[0]} = ${convertTo} ${currencie[1]}`}</p>}
               </div>
             </form>
           </div>
