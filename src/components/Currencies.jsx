@@ -39,7 +39,6 @@ export default function Currencies() {
       {currencies.loading && <div>Loading currencies</div>}
       {!currencies.loading && currencies.error ? <div>Error: {currencies.error}</div> : null}
       {!currencies.loading && Object.keys(currencies.currencies).length ? (
-        <>
           <div className="card-body">
             <form onSubmit={handleSubmit}>
               <Currency bott="base" />
@@ -54,7 +53,6 @@ export default function Currencies() {
               </div>
             </form>
           </div>
-        </>
       ) : null}
     </>
   )
