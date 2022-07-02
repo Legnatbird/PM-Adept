@@ -1,0 +1,38 @@
+* {
+  margin-top: 5px;
+}
+
+button.btn.btn-primary {
+  margin-top: 10px;
+  display: block;
+}
+
+.offdisplay {
+  opacity: 0;
+}
+
+.ondisplay {
+  opacity: 100;
+}
+
+.container {
+  max-width: 540px;
+  text-align: center;
+  align-items: center;
+}
+
+.form-control {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  align-content: stretch;
+  align-items: baseline;
+  justify-content: space-around;
+  max-width: 750px;
+}
+
+.row {
+  display: unset;
+}
