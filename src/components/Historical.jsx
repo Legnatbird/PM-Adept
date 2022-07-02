@@ -8,44 +8,40 @@ export default function Historical() {
   const [value, setValue] = useState();
   const [holder, setHolder] = useState();
 
-  const {history, visible}  = useSelector(state => state.historical);
+  const { history, visible } = useSelector(state => state.historical);
   const currencies = useSelector(state => state.currency.currencies);
   const dispatch = useDispatch();
-
-  const handleChange = e => {
-    if (e.target.value) {
-      dispatch(fetchHistorical(e.target.value));
-      return dispatch(setVisible({visible: false}));
-    }
-  }
-  const handleVisible = (a = true) => dispatch(setVisible({visible: a}));
 
   useEffect(() => {
     if (typeof value === "string") {
       setHolder(`The rate of ${currencies[0]} on this date was: ${value} ${currencies[1]}`);
-    }
-  }, [value, currencies]);
+    };
 
-  const handleSubmit = e => {
-    e.preventDefault();
     if (history[currencies[1]] & history[currencies[0]]) {
       setValue((history[currencies[1]] / history[currencies[0]]).toFixed(2));
-      handleVisible();
-    }
-    if (typeof value !== "undefined") {
+    } else if (typeof value !== "undefined") {
       if (!history[currencies[1]]) {
         setValue(`${currencies[1]} not exist in this date`);
-        handleVisible();
-      }
-      if (!history[currencies[0]]) {
+      } else if (!history[currencies[0]]) {
         setValue(`${currencies[0]} not exist in this date`);
-        handleVisible();
       }
     } else {
       setHolder("Please select a date");
-      handleVisible();
     }
-  };
+  }, [currencies, history, value, dispatch]);
+
+  function handleChange(e) {
+    if (e.target.value) {
+      dispatch(fetchHistorical(e.target.value));
+      return dispatch(setVisible({ visible: false }));
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    return dispatch(setVisible({ visible: true }));
+  }
+
 
   const date = getDate();
   const text = (value > 0) ? holder : value ? value : holder;
