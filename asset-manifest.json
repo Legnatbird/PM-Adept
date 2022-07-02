@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/pm-adept/static/css/main.06c93120.css",
+    "main.js": "/pm-adept/static/js/main.390b8953.js",
+    "index.html": "/pm-adept/index.html",
+    "main.06c93120.css.map": "/pm-adept/static/css/main.06c93120.css.map",
+    "main.390b8953.js.map": "/pm-adept/static/js/main.390b8953.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.06c93120.css",
+    "static/js/main.390b8953.js"
+  ]
+}
