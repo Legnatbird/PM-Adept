@@ -11,19 +11,18 @@ export default function Historical() {
   const currencies = useSelector(state => state.currency.currencies);
   const dispatch = useDispatch();
 
-  const handleChange = e=> dispatch(fetchHistorical(e.target.value));
-  const handleSubmit = e=> {
+  const handleChange = e=> {
     if (e.target.value) {
-      e.preventDefault();
-      setValue((currencieHistorical[currencies[1]] / currencieHistorical[currencies[0]]).toFixed(2)); 
-    } else {
-      e.preventDefault();
-      setValue("Insert a date");
+      dispatch(fetchHistorical(e.target.value));
     }
   };
+  const handleSubmit = e=> {
+    e.preventDefault();
+    setValue((currencieHistorical[currencies[1]] / currencieHistorical[currencies[0]]).toFixed(2)); 
+  };
   
-  const text = `The rate of ${currencies[0]} at that date was: ${value} ${currencies[1]}`;
   const date = getDate();
+  const text = (value > 0) ? `The rate of ${currencies[0]} at that date was: ${value} ${currencies[1]}` : "Set a date";
 
   return (
     <>
@@ -41,7 +40,7 @@ export default function Historical() {
                 </div>
                 <div style={{display: "flex", flexDirection: "column"}}>
                 <button type="submit" className="btn btn-primary">Check</button>
-                {value && <p style={{marginTop: "10px", marginBottom: "unset"}}>{(value !== "Insert a date") ? text : value}</p>}
+                {value && <p style={{marginTop: "10px", marginBottom: "unset"}}>{text}</p>}
               </div>
               </form>
             </div>

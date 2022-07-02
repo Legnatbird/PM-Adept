@@ -18,16 +18,8 @@ export const historicalSlice = createSlice({
     name: "historical",
     initialState,
     extraReducers: builder => {
-      builder.addCase(fetchHistorical.pending, (state) => {
-          state.loading = true;
-      })
       builder.addCase(fetchHistorical.fulfilled, (state, action) => {
           state.history = action.payload;
-          state.loading = false;
-      })
-      builder.addCase(fetchHistorical.rejected, (state, action) => {
-          state.error = action.error;
-          state.loading = false;
       })
   }
 })
