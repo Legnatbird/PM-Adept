@@ -1,51 +1,49 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { fetchHistorical, setVisible } from '../features/Historical/historicalSlide';
+import { useSelector } from 'react-redux';
+import getHistorical from '../utils/getHistorical';
 import getDate from '../utils/getDate';
 
 export default function Historical() {
 
-  const [value, setValue] = useState();
-  const [holder, setHolder] = useState();
-
-  const { history, visible } = useSelector(state => state.historical);
   const currencies = useSelector(state => state.currency.currencies);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (typeof value === "string") {
-      setHolder(`The rate of ${currencies[0]} on this date was: ${value} ${currencies[1]}`);
-    };
-
-    if (history[currencies[1]] & history[currencies[0]]) {
-      setValue((history[currencies[1]] / history[currencies[0]]).toFixed(2));
-    } else if (typeof value !== "undefined") {
-      if (!history[currencies[1]]) {
-        setValue(`${currencies[1]} not exist in this date`);
-      } else if (!history[currencies[0]]) {
-        setValue(`${currencies[0]} not exist in this date`);
-      }
-    } else {
-      setHolder("Please select a date");
-    }
-  }, [currencies, history, value, dispatch]);
+  const [visible, setVisible] = useState(false);
+  const [value, setValue] = useState();
+  const [data, setData] = useState(["AED", "AED"]);
+  const [text, setText] = useState()
 
   function handleChange(e) {
-    if (e.target.value) {
-      dispatch(fetchHistorical(e.target.value));
-      return dispatch(setVisible({ visible: false }));
+    if (typeof e.target.value === "string") {
+      let data = getHistorical(e.target.value).then(data => setData(data));
+      setData(data);
+      setVisible(false);
+      setValue((data[currencies[1]] / data[currencies[0]]).toFixed(2));
     }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setValue((history[currencies[1]] / history[currencies[0]]).toFixed(2));
-    return dispatch(setVisible({ visible: true }));
+    setVisible(true);
   }
 
-
-  const date = getDate();
-  const text = (value > 0) ? holder : value ? value : holder;
+  useEffect(() => {
+    if (data[currencies[1]] & data[currencies[0]]) {
+      setValue((data[currencies[1]] / data[currencies[0]]).toFixed(2));
+    };
+    if (typeof value === "string") {
+      setText(`The rate of ${currencies[0]} on this date was: ${value} ${currencies[1]}`);
+    };
+    if (typeof value === "string") {
+      if (!data[currencies[1]]) {
+        setText(`${currencies[1]} not exist in this date`);
+      }
+      if (!data[currencies[0]]) {
+        setText(`${currencies[0]} not exist in this date`);
+      }
+    } else {
+      setText("Please select a date");
+    }
+  }, [currencies, value, data, visible]);
 
   return (
     <div className="row">
@@ -58,11 +56,11 @@ export default function Historical() {
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="from">Date</label>
-                <input className="form-control" type="date" id="date" max={date} min="1999-01-01" onChange={handleChange} />
+                <input className="form-control" type="date" id="date" max={getDate()} min="1999-01-01" onChange={handleChange} />
               </div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <button type="submit" className="btn btn-primary">Check</button>
-                {(visible) && <p style={{ marginTop: "10px", marginBottom: "unset" }}>{text}</p>}
+                {visible && <p style={{ marginTop: "10px", marginBottom: "unset" }}>{text}</p>}
               </div>
             </form>
           </div>

@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrency } from "../features/Selected/selectedSlide";
 import { setConvert } from "../features/Convert/convertSlide";
-import { setVisible } from "../features/Historical/historicalSlide";
 
 export default function Currency({ bott, message = "Currency" }) {
 
@@ -20,9 +19,7 @@ export default function Currency({ bott, message = "Currency" }) {
       convert,
       convertTo
     }))
-    dispatch(setVisible({visible: false}));
   }
-
   const options = Object.keys(currencies.currencies).map(key => (
     <option value={key} key={key}>
       {key}
