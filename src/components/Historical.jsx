@@ -9,25 +9,11 @@ export default function Historical() {
 
   const [visible, setVisible] = useState(false);
   const [value, setValue] = useState();
-  const [data, setData] = useState(["AED", "AED"]);
+  const [data, setData] = useState({});
   const [text, setText] = useState()
 
-  function handleChange(e) {
-    if (typeof e.target.value === "string") {
-      let data = getHistorical(e.target.value).then(data => setData(data));
-      setData(data);
-      setVisible(false);
-      setValue((data[currencies[1]] / data[currencies[0]]).toFixed(2));
-    }
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    setVisible(true);
-  }
-
   useEffect(() => {
-    if (data[currencies[1]] & data[currencies[0]]) {
+    if (data[currencies[1]] && data[currencies[0]]) {
       setValue((data[currencies[1]] / data[currencies[0]]).toFixed(2));
     };
     if (typeof value === "string") {
@@ -43,7 +29,22 @@ export default function Historical() {
     } else {
       setText("Please select a date");
     }
-  }, [currencies, value, data, visible]);
+  }, [currencies, value, setText, setValue, data, visible]);
+  
+  function handleChange(e) {
+    if (typeof e.target.value === "string") {
+      let data = getHistorical(e.target.value).then(data => setData(data));
+      setData(data);
+      setValue((data[currencies[1]] / data[currencies[0]]).toFixed(2));
+      setVisible(false);
+    }
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setVisible(true);
+  }
+
 
   return (
     <div className="row">
