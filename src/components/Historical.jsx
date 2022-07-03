@@ -39,6 +39,7 @@ export default function Historical() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setValue((history[currencies[1]] / history[currencies[0]]).toFixed(2));
     return dispatch(setVisible({ visible: true }));
   }
 
